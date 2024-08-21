@@ -32,16 +32,15 @@ namespace ClassStudentManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Age,Id")] Student student)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Age,Id")] Student student)
         {
-            //if (ModelState.IsValid)
-           // {
+           
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-           // }
-            ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
-            return View(student);
+            
+               ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
+               return View(student);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -56,7 +55,7 @@ namespace ClassStudentManagement.Controllers
             {
                 return NotFound();
             }
-            ViewData["StreamId"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
+            ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
             return View(student);
         }
 
@@ -64,13 +63,8 @@ namespace ClassStudentManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("StudentId,FirstName,LastName,Age,Id")] Student student)
         {
-            if (id != student.StudentId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
+           
+           
                 try
                 {
                     _context.Update(student);
@@ -87,10 +81,9 @@ namespace ClassStudentManagement.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["StreamId"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
-            return View(student);
+               return RedirectToAction(nameof(Index));
+               ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
+               return View(student);
         }
 
         public async Task<IActionResult> Delete(int? id)
