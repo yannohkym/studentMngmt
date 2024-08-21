@@ -20,19 +20,19 @@ namespace ClassStudentManagement.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Students.Include(s => s.Streams);
+            var applicationDbContext = _context.Students.Include(s => s.ClassStream);
             return View(await applicationDbContext.ToListAsync());
         }
 
         public IActionResult Create()
         {
-            ViewData["StreamId"] = new SelectList(_context.Streams, "StreamId", "StreamName");
+            ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Age,StreamId")] Student student)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Age,Id")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace ClassStudentManagement.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StreamId"] = new SelectList(_context.Streams, "StreamId", "StreamName", student.StreamId);
+            ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
             return View(student);
         }
 
@@ -56,13 +56,13 @@ namespace ClassStudentManagement.Controllers
             {
                 return NotFound();
             }
-            ViewData["StreamId"] = new SelectList(_context.Streams, "StreamId", "StreamName", student.StreamId);
+            ViewData["StreamId"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
             return View(student);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,FirstName,LastName,Age,StreamId")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,FirstName,LastName,Age,Id")] Student student)
         {
             if (id != student.StudentId)
             {
@@ -89,7 +89,7 @@ namespace ClassStudentManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StreamId"] = new SelectList(_context.Streams, "StreamId", "StreamName", student.StreamId);
+            ViewData["StreamId"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
             return View(student);
         }
 
@@ -101,7 +101,7 @@ namespace ClassStudentManagement.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.Streams)
+                .Include(s => s.ClassStream)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {

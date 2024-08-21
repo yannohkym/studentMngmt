@@ -6,6 +6,7 @@ C:\Users\admin\source\repos\Student  management  system\obj\Debug\net8.0\Student
 C:\Users\admin\source\repos\Student  management  system\obj\Debug\net8.0\Student  management  system.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\admin\source\repos\Student  management  system\obj\Debug\net8.0\Student  management  system.RazorAssemblyInfo.cache
 C:\Users\admin\source\repos\Student  management  system\obj\Debug\net8.0\Student  management  system.RazorAssemblyInfo.cs
+C:\Users\admin\source\repos\Student  management  system\obj\Debug\net8.0\Student  management  system.sourcelink.json
 C:\Users\admin\source\repos\Student  management  system\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\admin\source\repos\Student  management  system\bin\Debug\net8.0\appsettings.json
 C:\Users\admin\source\repos\Student  management  system\bin\Debug\net8.0\Student  management  system.staticwebassets.runtime.json

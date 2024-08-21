@@ -13,21 +13,53 @@ namespace Student__management__system.Data
             {
             }
 
-            public DbSet<Streams> Streams { get; set; }
+    
             public DbSet<Student> Students { get; set; }
+
+            public DbSet<ClassStream> ClassStream { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            
 
-            modelBuilder.Entity<Streams>()
-                .HasKey(s => s.StreamId); 
+           
 
             // Additional configurations (if any)
+          
+
+
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Student>()
-               .HasKey(s => s.StudentId);
-        }
+                .HasKey(s => s.StudentId);
+
+            modelBuilder.Entity<ClassStream>()
+                .HasKey(cs => cs.Id);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.ClassStream)
+                .WithMany(cs => cs.Students)
+                .HasForeignKey(s => s.Id);
+
+
+
+            // seeder
+            modelBuilder.Entity<ClassStream>().HasData(
+            new ClassStream { Id = 1, Name = "Science", Description = "Science Stream" },
+            new ClassStream { Id = 2, Name = "Arts", Description = "Arts Stream" },
+            new ClassStream { Id = 3, Name = "Commerce", Description = "Commerce Stream" }
+            );
+
+            modelBuilder.Entity<Student>().HasData(
+            new Student { StudentId = 1, FirstName = "John ", LastName = "Doe", Age = 16, Id = 1 },
+            new Student { StudentId = 2, FirstName = "Jane Doe", LastName = "Doe", Age = 17, Id = 2 },
+            new Student { StudentId = 3, FirstName = "Jim ", LastName = "Doe", Age = 16, Id = 3 }
+            );
+
+
+         
+    }
     }
     
 }

@@ -1,9 +1,10 @@
 ﻿namespace Student__management__system.Models
 {
-    public class Streams
+    public class ClassStream
     {
-        public int StreamId { get; set; }
-        public string StreamName { get; set; }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
 
         // Navigation property

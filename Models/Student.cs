@@ -7,10 +7,12 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
-        public int StreamId { get; set; }
+
+        // foreign key
+        public int Id { get; set; }
 
         // Navigation property
-        public Streams Streams { get; set; }
+        public ClassStream ClassStream { get; set; }
 
     }
 }

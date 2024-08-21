@@ -11,8 +11,8 @@ using Student__management__system.Data;
 namespace Student__management__system.Migrations
 {
     [DbContext(typeof(AppDbcontext))]
-    [Migration("20240820080858_UpdatedStreamModel")]
-    partial class UpdatedStreamModel
+    [Migration("20240820160025_innitialmigration")]
+    partial class innitialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,25 +24,25 @@ namespace Student__management__system.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Student__management__system.Models.Streams", b =>
+            modelBuilder.Entity("Student__management__system.Models.ClassStream", b =>
                 {
-                    b.Property<int>("StreamId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StreamId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StreamName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("StreamId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Streams");
+                    b.ToTable("ClassStream");
                 });
 
             modelBuilder.Entity("Student__management__system.Models.Student", b =>
@@ -60,35 +60,35 @@ namespace Student__management__system.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StreamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StreamsStreamId")
+                    b.Property<int>("StreamsId")
                         .HasColumnType("int");
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("StreamsStreamId");
+                    b.HasIndex("StreamsId");
 
                     b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Student__management__system.Models.Student", b =>
                 {
-                    b.HasOne("Student__management__system.Models.Streams", "Streams")
+                    b.HasOne("Student__management__system.Models.ClassStream", "Streams")
                         .WithMany("Students")
-                        .HasForeignKey("StreamsStreamId")
+                        .HasForeignKey("StreamsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Streams");
                 });
 
-            modelBuilder.Entity("Student__management__system.Models.Streams", b =>
+            modelBuilder.Entity("Student__management__system.Models.ClassStream", b =>
                 {
                     b.Navigation("Students");
                 });

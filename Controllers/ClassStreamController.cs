@@ -1,23 +1,24 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student__management__system.Data;
 using Student__management__system.Models;
+
 namespace Student__management__system.Controllers
 {
-    public class StreamController : Controller
+
+    public class ClassStreamController : Controller
     {
         private readonly AppDbcontext _context;
 
-        public StreamController(AppDbcontext context)
+        public ClassStreamController(AppDbcontext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Streams.ToListAsync());
+            return View(await _context.ClassStream.ToListAsync());
         }
 
         public IActionResult Create()
@@ -27,7 +28,7 @@ namespace Student__management__system.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StreamId,StreamName,Description")] Stream stream)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description")] ClassStream stream)
         {
             if (ModelState.IsValid)
             {
@@ -35,6 +36,16 @@ namespace Student__management__system.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            else 
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage); // Or use a logger
+                }
+                return View(stream);
+            }
+
             return View(stream);
         }
 
@@ -45,7 +56,7 @@ namespace Student__management__system.Controllers
                 return NotFound();
             }
 
-            var stream = await _context.Streams.FindAsync(id);
+            var stream = await _context.ClassStream.FindAsync(id);
             if (stream == null)
             {
                 return NotFound();
@@ -55,9 +66,9 @@ namespace Student__management__system.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StreamId,StreamName,Description")] Streams stream)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] ClassStream stream)
         {
-            if (id != stream.StreamId)
+            if (id != stream.Id)
             {
                 return NotFound();
             }
@@ -71,7 +82,7 @@ namespace Student__management__system.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StreamExists(stream.StreamId))
+                    if (!StreamExists(stream.Id))
                     {
                         return NotFound();
                     }
@@ -92,8 +103,8 @@ namespace Student__management__system.Controllers
                 return NotFound();
             }
 
-            var stream = await _context.Streams
-                .FirstOrDefaultAsync(m => m.StreamId == id);
+            var stream = await _context.ClassStream
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (stream == null)
             {
                 return NotFound();
@@ -106,15 +117,15 @@ namespace Student__management__system.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var stream = await _context.Streams.FindAsync(id);
-            _context.Streams.Remove(stream);
+            var stream = await _context.ClassStream.FindAsync(id);
+            _context.ClassStream.Remove(stream);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool StreamExists(int id)
         {
-            return _context.Streams.Any(e => e.StreamId == id);
+            return _context.ClassStream.Any(e => e.Id == id);
         }
     }
 }
