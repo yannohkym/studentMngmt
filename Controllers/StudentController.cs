@@ -32,14 +32,14 @@ namespace ClassStudentManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Age,Id")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Age,Id")] Student student)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+           // {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+           // }
             ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
             return View(student);
         }
