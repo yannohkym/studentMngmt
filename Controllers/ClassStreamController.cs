@@ -28,23 +28,20 @@ namespace Student__management__system.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] ClassStream stream)
+        public async Task<IActionResult> Create([Bind("Name,Description")] ClassStream stream)
         {
-            if (ModelState.IsValid)
-            {
+          
                 _context.Add(stream);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            else 
-            {
+           
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
                     Console.WriteLine(error.ErrorMessage); // Or use a logger
                 }
                 return View(stream);
-            }
+            
 
             return View(stream);
         }

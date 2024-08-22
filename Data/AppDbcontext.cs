@@ -46,9 +46,10 @@ namespace Student__management__system.Data
 
             // seeder
             modelBuilder.Entity<ClassStream>().HasData(
-            new ClassStream { Id = 1, Name = "Science", Description = "Science Stream" },
-            new ClassStream { Id = 2, Name = "Arts", Description = "Arts Stream" },
-            new ClassStream { Id = 3, Name = "Commerce", Description = "Commerce Stream" }
+            new ClassStream { Id = 1, Name = "Form1", Description = "Science Stream" },
+            new ClassStream { Id = 2, Name = " Form 2", Description = "Arts Stream" },
+            new ClassStream { Id = 3, Name = "Form 3", Description = "Commerce Stream" },
+            new ClassStream { Id = 4, Name = "Form 4", Description = "Technical Stream" }
             );
 
             modelBuilder.Entity<Student>().HasData(

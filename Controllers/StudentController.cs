@@ -39,8 +39,8 @@ namespace ClassStudentManagement.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             
-               ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
-               return View(student);
+                ViewData["Id"] = new SelectList(_context.ClassStream, "Id", "Name", student.Id);
+                return View(student);
         }
 
         public async Task<IActionResult> Edit(int? id)
