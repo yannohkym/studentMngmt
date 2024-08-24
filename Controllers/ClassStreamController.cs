@@ -70,9 +70,7 @@ namespace Student__management__system.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
+           try
                 {
                     _context.Update(stream);
                     await _context.SaveChangesAsync();
@@ -89,7 +87,7 @@ namespace Student__management__system.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             return View(stream);
         }
 
